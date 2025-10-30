@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}University Swings{% endblock %}</title>
+  <meta name="description" content="Mobile golf simulator trailer touring universities. See the schedule or request a stop." />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="University Swings home">
+      <img
+        src="{{ url_for('static', filename='brand/university-swings-logo.svg') }}"
+        alt="University Swings"
+        class="brand-logo">
+      <span class="sr-only">University Swings</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#tour">Tour</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#request">Request a Stop</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    © {{ year|default(2025) }} University Swings
+  </footer>
+
+  <!-- Load your JS once for all pages -->
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>
