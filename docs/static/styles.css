@@ -210,3 +210,28 @@ label{ display:block; font-size:.95rem; color: var(--muted); margin-bottom:6px }
 @media (max-width: 640px) {
   .nav-links { gap: 14px; }
 }
+
+/* --- Header layout fix --- */
+.site-header { padding: 16px 0; background: rgba(240,249,255,.9); border-bottom: 1px solid rgba(2,6,23,.06); }
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: nowrap;            /* keep in one row on desktop */
+}
+.brand { display: inline-flex; align-items: center; gap: .5rem; }
+.brand-logo { height: 56px; width: auto; display: block; }
+
+/* nav links in a row */
+.nav-links { display: flex; gap: 24px; }
+
+/* If the header still wraps, allow links to shrink slightly instead of dropping */
+.nav-links a { white-space: nowrap; }
+
+/* Mobile: stack neatly */
+@media (max-width: 700px) {
+  .header-row { flex-wrap: wrap; gap: 12px; }
+  .nav-links { width: 100%; justify-content: flex-start; gap: 16px; }
+  .brand-logo { height: 44px; }
+}
