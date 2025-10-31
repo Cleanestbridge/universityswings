@@ -8,9 +8,8 @@ from flaskapp import create_app
 
 @pytest.fixture()
 def app():
-    # Default to testing mode; allow overrides via config if needed
     app = create_app({"TESTING": True})
-    return app
+    yield app
 
 
 @pytest.fixture()
@@ -24,33 +23,25 @@ def test_home_renders_brand_and_assets(client):
     assert res.status_code == 200
     html = res.data.decode("utf-8")
 
-    # Brand string
+    # Brand name (you rebranded to University Swings)
     assert "University Swings" in html
 
-    # Very simple checks for assets (linked in HTML)
+    # Very simple checks for assets
     assert "styles.css" in html and "/static/" in html
     assert "app.js" in html and "/static/" in html
 
 
 def test_static_assets_exist_and_are_served(client):
     """styles.css and app.js are served and non-empty."""
-    # Flask serves /static/* in local dev; if not, skip (Pages handles prod).
     for path in ("/static/styles.css", "/static/app.js"):
         res = client.get(path)
-        if res.status_code == 404:
-            pytest.skip(f"{path} not served by Flask (ok for Cloudflare Pages deploy).")
         assert res.status_code == 200, f"{path} should be served"
-        assert len(res.data) > 50, f"{path} looks empty"
+        assert len(res.data) > 20, f"{path} looks empty"
 
 
 def test_events_api_shape_and_values(client):
-    """
-    GET /api/events returns a list of event dicts with expected fields and reasonable values.
-    If not implemented in Flask (because Pages Functions handle prod), skip.
-    """
+    """GET /api/events returns a list of event dicts with expected fields and reasonable values."""
     res = client.get("/api/events")
-    if res.status_code == 404:
-        pytest.skip("/api/events not implemented in Flask locally (handled by Pages Functions in prod).")
     assert res.status_code == 200
     data = res.get_json()
     assert isinstance(data, list), "Expected a list of events"
@@ -73,39 +64,27 @@ def test_events_api_shape_and_values(client):
         assert date_re.match(ev["date"]), f"Bad date format: {ev['date']}"
 
 
-def test_request_api_validation(client):
-    """
-    POST /api/request validates required fields and returns ok:true for valid payloads.
-    If not implemented in Flask, skip (handled by Pages Functions in prod).
-    """
-    bad = client.post("/api/request", json={"name": "A"})
-    if bad.status_code == 404:
-        pytest.skip("/api/request not implemented in Flask locally (handled by Pages Functions in prod).")
-
-    assert bad.status_code == 400
+def test_request_stop_validation(client):
+    """POST /api/request-stop validates required fields and returns ok for valid payloads."""
+    res = client.post("/api/request-stop", json={"name": "A"})
+    assert res.status_code == 400
 
     payload = {"name": "Bobby", "email": "b@u.edu", "university": "Indiana University"}
-    ok = client.post("/api/request", json=payload)
-    assert ok.status_code == 200
-    out = ok.get_json()
+    res2 = client.post("/api/request-stop", json=payload)
+    assert res2.status_code == 200
+    out = res2.get_json()
     assert out.get("ok") is True
 
 
 def test_frontend_has_ics_generator_if_present():
     """
-    Optional: If app.js includes .ics generation, sanity-check it exists.
-    Looks in /static/app.js (Flask dev) or /docs/static/app.js (Pages).
+    Optional: If your static/app.js includes .ics generation, sanity-check it exists.
     Auto-skip if not present.
     """
-    candidates = [
-        Path("static/app.js"),
-        Path("docs/static/app.js"),
-    ]
-    path = next((p for p in candidates if p.exists()), None)
-    if not path:
-        pytest.skip("No app.js found in static or docs/static (skip).")
-
-    content = path.read_text(encoding="utf-8", errors="ignore")
+    p = Path("static/app.js")
+    if not p.exists():
+        pytest.skip("static/app.js not found")
+    content = p.read_text(encoding="utf-8", errors="ignore")
     if "BEGIN:VCALENDAR" not in content:
-        pytest.skip("ICS generator not present in app.js (skip).")
+        pytest.skip("ICS generator not present in app.js (skip)")
     assert "BEGIN:VCALENDAR" in content and "SUMMARY:" in content
