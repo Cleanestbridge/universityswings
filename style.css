@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #fafafa;
+    background: #EEEDEB;
     color: #222;
 }
 
@@ -21,8 +21,8 @@ section {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #e8e5e5;
-    border-bottom: 1px solid #ccc;
+    background: #dddcd8;
+    border-bottom: 1px solid #990000;
     z-index: 1000;
 }
 
@@ -36,7 +36,7 @@ section {
 .logo {
     font-size: 22px;
     font-weight: bold;
-    background: linear-gradient(to right, #2563eb, #7c3aed);
+    background: linear-gradient(to right, #990000, #990000);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -48,19 +48,21 @@ section {
     gap: 20px;
 }
 
-.nav-links a {
+.nav-links a:not(.cta-btn) {
     text-decoration: none;
-    color: #333;
+    color: #990000;
     font-weight: 600;
 }
 
+
 .cta-btn {
-    background: #2563eb;
-    color: #fff;
+    background: #990000;
+    color: #EEEDEB;
     padding: 8px 18px;
     border-radius: 20px;
     text-decoration: none;
 }
+
 
 /* Mobile */
 .menu-btn {
@@ -102,7 +104,7 @@ section {
 }
 
 .highlight {
-    background: linear-gradient(to right, #2563eb, #7c3aed);
+    background: linear-gradient(to right, #990000, #990000);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -111,7 +113,7 @@ section {
 .hero-btn {
     display: inline-block;
     margin-top: 20px;
-    background: #2563eb;
+    background: #990000;
     color: white;
     padding: 12px 24px;
     border-radius: 25px;
@@ -163,8 +165,8 @@ section {
 /* Contact */
 .contact {
     text-align: center;
-    background: #2563eb;
-    color: white;
+    background: #990000;
+    color: #EEEDEB;
     padding: 60px 20px;
     border-radius: 30px;
     width: 80%;
@@ -173,7 +175,7 @@ section {
 
 .contact-btn {
     background: white;
-    color: #2563eb;
+    color: #990000;
     padding: 12px 24px;
     border-radius: 25px;
     text-decoration: none;
@@ -184,6 +186,6 @@ section {
 .footer {
     text-align: center;
     padding: 10px;
-    background: #111;
-    color: #ccc;
+    background: #990000;
+    color: #EEEDEB;
 }
