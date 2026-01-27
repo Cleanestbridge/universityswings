@@ -2,7 +2,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #EEEDEB;
+    background: linear-gradient(to bottom right, #8e0e00, #1f1c18);
+    background-attachment: fixed; /* allows the gradient to be fixed for all devices for better responsiveness */
+    min-height: 100vh; 
     color: #222;
 }
 
@@ -14,6 +16,8 @@ section {
     text-align: center;
     font-size: 32px;
     margin-bottom: 40px;
+    color: white;
+    
 }
 
 /* Navbar */
@@ -21,8 +25,9 @@ section {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #dddcd8;
-    border-bottom: 1px solid #990000;
+    background: transparent; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px); 
     z-index: 1000;
 }
 
@@ -36,10 +41,7 @@ section {
 .logo {
     font-size: 22px;
     font-weight: bold;
-    background: linear-gradient(to right, #990000, #990000);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+    color: white; 
 }
 
 .nav-links {
@@ -50,17 +52,24 @@ section {
 
 .nav-links a:not(.cta-btn) {
     text-decoration: none;
-    color: #990000;
+    color: white; 
     font-weight: 600;
 }
 
 
 .cta-btn {
-    background: #990000;
-    color: #EEEDEB;
+    background: transparent;
+    color: white;
     padding: 8px 18px;
     border-radius: 20px;
+    border: 2px solid white; 
     text-decoration: none;
+    transition: all 0.3s ease; 
+}
+
+.cta-btn:hover {
+    background: white;
+    color: black;
 }
 
 
@@ -69,6 +78,7 @@ section {
     display: none;
     font-size: 26px;
     background: none;
+    color: white;
     border: none;
 }
 
@@ -76,15 +86,16 @@ section {
     display: none;
     flex-direction: column;
     padding: 15px;
-    background: #f2f2f2;
+    background:transparent;
     border-top: 1px solid #ccc;
 }
 
 .mobile-menu a {
     padding: 10px 0;
     text-decoration: none;
+    text-align: center;
     font-weight: 600;
-    color: #333;
+    color: white;
 }
 
 /* Responsive */
@@ -101,10 +112,11 @@ section {
 .hero {
     text-align: center;
     padding: 140px 20px 20px;
+    color: white
 }
 
 .highlight {
-    background: linear-gradient(to right, #990000, #990000);
+    background: linear-gradient(to right, #e7e4e4, #fffdfdb0);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -113,11 +125,18 @@ section {
 .hero-btn {
     display: inline-block;
     margin-top: 20px;
-    background: #990000;
+    background: transparent;
     color: white;
+    border: 2px solid white;
     padding: 12px 24px;
     border-radius: 25px;
     text-decoration: none;
+    transition: all 0.3s ease; /* this was applied to all buttons */
+}
+
+.hero-btn:hover {
+    background: white;
+    color: black;
 }
 
 /* Cards */
@@ -128,10 +147,11 @@ section {
 }
 
 .card {
-    background: #ffffff;
+    background: transparent; 
     padding: 20px;
     border-radius: 15px;
-    border: 1px solid #ddd;
+    border: 2px solid rgba(255, 255, 255, 0.4); 
+    color: white; 
 }
 
 /* About */
@@ -139,13 +159,15 @@ section {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
+    color: white
 }
 
 .about-box {
-    background: white;
+    background: transparent; 
     padding: 18px;
     border-radius: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid rgba(255, 255, 255, 0.4); 
+    color: white; 
 }
 
 /* Team */
@@ -153,39 +175,70 @@ section {
     display: flex;
     justify-content: center;
     gap: 30px;
+    color: white;
+    flex-wrap: wrap; 
+}
+
+.team-photos, p {
+    color: white;
+}
+
+.team-photos, a {
+    color: white;
+}
+.team-photos, a:hover {
+    color: rgb(245, 89, 89);
 }
 
 .team-card img {
     width: 230px;
     height: 230px;
     object-fit: cover;
-    border-radius: 18px;
+    border-radius: 38px;
+    border-color: white;
+    border-style: solid;
+}
+
+/* media query for mobile this just allows us to stack our images vertically*/
+@media (max-width: 800px) {
+    .team-card img {
+        grid-template-columns: 1fr;
+    } 
 }
 
 /* Contact */
 .contact {
     text-align: center;
-    background: #990000;
+    background: transparent; 
     color: #EEEDEB;
     padding: 60px 20px;
     border-radius: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.4); 
     width: 80%;
     margin: 40px auto;
 }
 
 .contact-btn {
-    background: white;
-    color: #990000;
+    background: transparent;
+    color: white;
     padding: 12px 24px;
     border-radius: 25px;
+    border: 2px solid white; 
     text-decoration: none;
     font-weight: bold;
+    transition: all 0.3s ease; /* adds transition comment it to see the before then comment to see after */
+}
+
+.contact-btn:hover {
+    background: white;
+    color: black;
 }
 
 /* Footer */
 .footer {
     text-align: center;
     padding: 10px;
-    background: #990000;
+    border-top: 0.5px solid white;
+    background: transparent;
     color: #EEEDEB;
 }
